@@ -505,11 +505,35 @@
         transform: translateY(0);
       }
 
+  /* Mobile Styles */
+.menu-toggle {
+  display: none;
+  font-size: 1.4rem;
+  color: #4da6ff;   /* Light Blue */
+  cursor: pointer;
+}
+
       /* Responsive Design */
       @media (max-width: 768px) {
-        .nav-links {
-          display: none;
-        }
+          .menu-toggle {
+      display: block;
+    }
+
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background: rgba(15, 23, 42, 0.95);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+    }
+
+    .nav-links.active {
+      display: flex;
+    }
+
 
         .about-content {
           grid-template-columns: 1fr;
@@ -541,20 +565,27 @@
   </head>
   <body>
     <!-- Header -->
-    <header class="header">
-      <div class="container">
-        <nav class="nav">
-          <div class="logo">CODE COVE</div>
-          <ul class="nav-links">
-            <li><a href="#home" class="nav-link">Home</a></li>
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#projects" class="nav-link">Projects</a></li>
-            <li><a href="#experience" class="nav-link">Experience</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
-          </ul>
-        </nav>
+   <!-- Header -->
+<header class="header">
+  <div class="container">
+    <nav class="nav">
+      <div class="logo">CODE COVE</div>
+
+      <!-- Mobile Menu Icon -->
+      <div class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
       </div>
-    </header>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -910,7 +941,17 @@ function showAlert() {
 function closeAlert() {
   document.getElementById("customAlert").style.display = "none";
 }
+  const menuToggle = document.getElementById("menu-toggle");
+  const navLinks = document.getElementById("nav-links");
 
+  menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+
+    // Icon change (bars <-> close)
+    menuToggle.innerHTML = navLinks.classList.contains("active")
+      ? '<i class="fas fa-times"></i>'
+      : '<i class="fas fa-bars"></i>';
+  });
     </script>
   </body>
 </html>
